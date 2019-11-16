@@ -13,6 +13,7 @@
     "prettier": "^1.19.1",
     "react": "16.11.0",
     "react-dom": "16.11.0",
+    "rxjs": "^6.5.3",
     "socket.io-client": "^2.3.0"
   },
   "devDependencies": {

@@ -1,4 +1,5 @@
 import io from "socket.io-client";
+import { fromEvent, Observable } from "rxjs";
 
 const API_URL = `dev.api.be-dice.com`;
 
