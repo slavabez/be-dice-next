@@ -9,6 +9,10 @@ interface RegisterSuccessResponse {
   user?: User;
 }
 
+interface RegisterRestoreResponse {
+  user?: User;
+}
+
 export default class SocketService {
   private socket: SocketIOClient.Socket;
 
@@ -41,12 +45,20 @@ export default class SocketService {
       console.log(res);
     });
 
-    this.socket.on(`register.new.failure`, () => {
-      console.log(`Registration error`);
+    this.socket.on(`register.new.failure`, (res: any) => {
+      console.log(`Registration error`, res);
+    });
+
+    this.socket.on(`register.restore.success`, (res: RegisterRestoreResponse) => {
+      console.log(`User restored:`, res);
     });
   }
 
   registerUser(newUser: User) {
     this.socket.emit(`register.new`, newUser);
+  }
+
+  restoreUser(session: string) {
+    this.socket.emit(`register.restore`, session);
   }
 }

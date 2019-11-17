@@ -1,10 +1,21 @@
 import SocketService from "./SocketService";
 
+export interface Color {
+  hex: string;
+  name: string;
+}
+
+export interface Avatar {
+  thumb: string;
+  src: string;
+  name: string;
+}
+
 export interface User {
   id: string;
-  avatar: string;
+  avatar: Avatar;
   name: string;
-  color: string;
+  color: Color;
 }
 
 export interface Room {
@@ -38,7 +49,7 @@ export interface ActiveRoom extends Room {
   rollHistory: RollMessage[];
 }
 
-export interface GlobalContext {
+export interface GlobalState {
   socketService?: SocketService;
   rooms?: Room[];
   myUser?: User;

@@ -1,20 +1,22 @@
-import React, { createContext, useEffect } from "react";
+import React from "react";
 import SocketService from "../helpers/SocketService";
-import { GlobalContext } from "../helpers/types";
+import { GlobalState } from "../helpers/types";
+import { GlobalContext } from "./Context";
 
-const initialState: GlobalContext = {
-  socketService: new SocketService()
+const initialState: GlobalState = {
+  socketService: new SocketService(),
+  activeRoom: null,
+  myUser: null,
+  rooms: []
 };
-
-export const globalContext = createContext<GlobalContext>({});
 
 const Layout: React.FC = props => {
   return (
     <div>
-      <globalContext.Provider value={initialState}>
+      <GlobalContext.Provider value={initialState}>
         <header>This is a header</header>
         {props.children}
-      </globalContext.Provider>
+      </GlobalContext.Provider>
     </div>
   );
 };

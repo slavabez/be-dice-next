@@ -1,31 +1,13 @@
 import React, { useContext } from "react";
-import { globalContext } from "./Layout";
+import { GlobalContext } from "./Context";
 
 const Landing: React.FC = () => {
-  const global = useContext(globalContext);
+  const global = useContext(GlobalContext);
 
   return (
     <section>
       <h1>Welcome page</h1>
-      <button
-        onClick={() => {
-          global.socketService.init();
-        }}
-      >
-        Init
-      </button>
-      <button
-        onClick={() => {
-          global.socketService.registerUser({
-            name: `Slava`,
-            id: `Yolooo`,
-            avatar: `avatarrr`,
-            color: `Yellow`
-          });
-        }}
-      >
-        Register
-      </button>
+
     </section>
   );
 };
