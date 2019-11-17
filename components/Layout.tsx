@@ -1,7 +1,7 @@
 import React from "react";
 import SocketService from "../helpers/SocketService";
 import { GlobalState } from "../helpers/types";
-import { GlobalContext } from "./Context";
+import { GlobalProvider } from "./Context";
 
 const initialState: GlobalState = {
   socketService: new SocketService(),
@@ -11,13 +11,12 @@ const initialState: GlobalState = {
 };
 
 const Layout: React.FC = props => {
+  console.log(`Layout rendering`, initialState);
   return (
-    <div>
-      <GlobalContext.Provider value={initialState}>
-        <header>This is a header</header>
-        {props.children}
-      </GlobalContext.Provider>
-    </div>
+    <GlobalProvider value={initialState}>
+      <header>This is a header</header>
+      {props.children}
+    </GlobalProvider>
   );
 };
 

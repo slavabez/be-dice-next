@@ -1,9 +1,6 @@
-import React, { useContext } from "react";
-import { GlobalContext } from "./Context";
+import React from "react";
 
 const Landing: React.FC = () => {
-  const global = useContext(GlobalContext);
-
   return (
     <section>
       <h1>Welcome page</h1>
