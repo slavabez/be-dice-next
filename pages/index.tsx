@@ -1,11 +1,14 @@
-import React from "react";
-import Layout from "../components/Layout";
+import React, { useContext } from "react";
+import Layout, { globalContext } from "../components/Layout";
 import Landing from "../components/Landing";
 
 const IndexPage = () => {
-  return <Layout>
-    <Landing/>
-  </Layout>
+
+  return (
+    <Layout>
+      <Landing />
+    </Layout>
+  );
 };
 
 export default IndexPage;

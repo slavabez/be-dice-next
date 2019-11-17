@@ -1,3 +1,5 @@
+import SocketService from "./SocketService";
+
 export interface User {
   id: string;
   avatar: string;
@@ -37,6 +39,7 @@ export interface ActiveRoom extends Room {
 }
 
 export interface GlobalContext {
+  socketService?: SocketService;
   rooms?: Room[];
   myUser?: User;
   activeRoom?: ActiveRoom;
