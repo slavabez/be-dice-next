@@ -1,54 +1,28 @@
 import React from "react";
+import { connect } from "react-redux";
 import Layout from "../components/Layout";
-import { configureStore, createAction, createReducer } from "@reduxjs/toolkit";
-import SocketService from "../helpers/SocketService";
 
-const initialState = {
-  isConnected: false,
-  user: null
-};
+import { doConnect, doDisconnect } from "../redux/connectionSlice";
 
-const socketService = new SocketService();
+const mapDispatch = { doConnect, doDisconnect };
 
-const doConnect = createAction(`CONNECT`);
-const doDisconnect = createAction(`DISCONNECT`);
-
-const reducer = createReducer(initialState, {
-  [doConnect.type]: state => {
-    if (!state.isConnected) {
-      socketService.init();
-      return { isConnected: true, user: { ...state.user } };
-    }
-  },
-  [doDisconnect.type]: state => {
-    if (state.isConnected) {
-      socketService.stop();
-      return { isConnected: false, user: { ...state.user } };
-    }
-  }
-});
-
-const store = configureStore({
-  reducer: reducer
-});
-
-const DebugPage = () => {
+const DebugPage = ({ doConnect, doDisconnect }) => {
   return (
     <Layout>
       <div>
         <fieldset>
           <legend>Socket Redux actions</legend>
-          <span>Status: {store.getState().isConnected.toString()}</span>
+          <span>Status:</span>
           <button
             onClick={() => {
-              store.dispatch(doConnect());
+              doConnect();
             }}
           >
             Connect
           </button>
           <button
             onClick={() => {
-              store.dispatch(doDisconnect());
+              doDisconnect();
             }}
           >
             Disconnect
@@ -62,4 +36,4 @@ const DebugPage = () => {
   );
 };
 
-export default DebugPage;
+export default connect(null, mapDispatch)(DebugPage);
