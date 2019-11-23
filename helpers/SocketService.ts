@@ -61,4 +61,13 @@ export default class SocketService {
   restoreUser(session: string) {
     this.socket.emit(`register.restore`, session);
   }
+
+  getVersion(){
+
+  }
+
+  stop() {
+    this.socket.removeAllListeners();
+    if (this.socket.connected) this.socket.close();
+  }
 }
