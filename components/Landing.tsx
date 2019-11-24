@@ -5,7 +5,9 @@ const Landing: React.FC = () => {
   return (
     <section>
       <h1>Welcome page</h1>
-      <Link href="/debug">Debug page</Link>
+      <Link href="/debug">
+        <a>Debug page</a>
+      </Link>
     </section>
   );
 };

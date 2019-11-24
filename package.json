@@ -21,6 +21,8 @@
   "devDependencies": {
     "@types/node": "^12.12.7",
     "@types/react": "^16.9.11",
+    "@types/react-redux": "^7.1.5",
+    "@types/webpack-env": "^1.14.1",
     "typescript": "^3.7.2"
   }
 }
