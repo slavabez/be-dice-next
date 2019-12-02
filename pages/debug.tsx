@@ -69,7 +69,7 @@ const DebugContent = () => {
         <button
           onClick={() => {
             if (window && window.localStorage) {
-              const savedSession = window.localStorage.getItem(`user-session`);
+              const savedSession = window.localStorage.getItem(`be-dice-user-session`);
               if (savedSession) dispatch(sendRestoreUser(savedSession));
             }
           }}

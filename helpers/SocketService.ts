@@ -57,7 +57,7 @@ export default class SocketService {
       store.dispatch(setCurrentUser(res.user));
       if (window && window.localStorage) {
         // In browser, save session so that we can restore it later
-        window.localStorage.setItem(`user-session`, res.session);
+        window.localStorage.setItem(`be-dice-user-session`, res.session);
       }
     });
 
