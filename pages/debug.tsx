@@ -3,11 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/rootReducer";
 import Layout from "../components/Layout";
 
-import {
-  doConnect,
-  doDisconnect,
-  setApiVersion
-} from "../redux/connectionSlice";
+import { doConnect, doDisconnect } from "../redux/connectionSlice";
 
 const DebugContent = () => {
   const dispatch = useDispatch();
@@ -20,6 +16,10 @@ const DebugContent = () => {
       <fieldset>
         <legend>Socket Redux actions</legend>
         <span>Status: {isConnected.toString()}</span>
+        <br />
+        <span>Version: {apiVersion}</span>
+        <br />
+        <h2>Connection</h2>
         <button
           onClick={() => {
             dispatch(doConnect());
@@ -34,8 +34,12 @@ const DebugContent = () => {
         >
           Disconnect
         </button>
+        <br/>
+        <h2>User</h2>
         <button>Register user</button>
         <button>Restore user</button>
+        <br/>
+        <h2>Rooms</h2>
         <button>Create a room</button>
       </fieldset>
     </div>

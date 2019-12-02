@@ -8,27 +8,24 @@ export interface ConnectionState {
   apiVersion?: string;
 }
 
-const connectionSlice = createSlice({
+export const connectionSlice = createSlice({
   name: `connection`,
   initialState: {
     isConnected: false,
-    apiVersion: ""
+    apiVersion: "x.x.x"
   },
   reducers: {
     doConnect(state) {
-      if (!state.isConnected) {
-        socket.init();
-        state.isConnected = true;
-      }
+      socket.init();
     },
     doDisconnect(state) {
-      if (state.isConnected) {
-        socket.stop();
-        state.isConnected = false;
-      }
+      socket.stop();
     },
     setApiVersion(state, action) {
       state.apiVersion = action.payload;
+    },
+    setConnectionStatus(state, action) {
+      state.isConnected = !!action.payload;
     }
   }
 });
@@ -36,7 +33,8 @@ const connectionSlice = createSlice({
 export const {
   doConnect,
   doDisconnect,
-  setApiVersion
+  setApiVersion,
+  setConnectionStatus
 } = connectionSlice.actions;
 
 export default connectionSlice.reducer;
