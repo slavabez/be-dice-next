@@ -3,7 +3,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/rootReducer";
 import Layout from "../components/Layout";
 
-import { initConnect, initDisconnect } from "../redux/connectionSlice";
+import {
+  initConnect,
+  initDisconnect,
+  sendRegisterNewUser
+} from "../redux/connectionSlice";
+import { User } from "../helpers/types";
+
+const newUserData: User = {
+  name: `Ithinktheyreneat`,
+  avatar: {
+    name: `warlock`,
+    src: `someurl`,
+    thumb: `somneurl`
+  },
+  color: {
+    hex: `#efefef`,
+    name: `dark`
+  }
+};
 
 const DebugContent = () => {
   const dispatch = useDispatch();
@@ -38,11 +56,15 @@ const DebugContent = () => {
       </fieldset>
 
       <fieldset>
-        <span>
-          Current user: {JSON.stringify(currentUser)}
-        </span>
+        <span>Current user: {JSON.stringify(currentUser)}</span>
         <legend>User actions</legend>
-        <button>Register user</button>
+        <button
+          onClick={() => {
+            dispatch(sendRegisterNewUser(newUserData));
+          }}
+        >
+          Register user
+        </button>
         <button>Restore user</button>
       </fieldset>
 

@@ -27,8 +27,23 @@ export const connectionSlice = createSlice({
     setConnectionStatus(state, action) {
       state.isConnected = !!action.payload;
     },
-    doRegisterNewUser(state, action) {
-
+    sendRegisterNewUser(_, action) {
+      socket.registerUser(action.payload);
+    },
+    sendRestoreUser(_, action) {
+      socket.restoreUser(action.payload);
+    },
+    sendCreateNewRoom(_, action) {
+      socket.createARoom(action.payload);
+    },
+    sendJoinRoom(_, action) {
+      socket.joinRoom(action.payload);
+    },
+    sendLeaveRoom(_, action) {
+      socket.leaveRoom(action.payload);
+    },
+    sendANewRoll(_, action) {
+      socket.sendARoll(action.payload);
     }
   }
 });
@@ -37,7 +52,13 @@ export const {
   initConnect,
   initDisconnect,
   setApiVersion,
-  setConnectionStatus
+  setConnectionStatus,
+  sendRegisterNewUser,
+  sendRestoreUser,
+  sendCreateNewRoom,
+  sendJoinRoom,
+  sendLeaveRoom,
+  sendANewRoll
 } = connectionSlice.actions;
 
 export default connectionSlice.reducer;

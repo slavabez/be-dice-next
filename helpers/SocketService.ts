@@ -2,12 +2,13 @@ import io from "socket.io-client";
 import { fromEvent, Observable } from "rxjs";
 import { RollAuthor, Room, SingleRoll, User } from "./types";
 import { setApiVersion, setConnectionStatus } from "../redux/connectionSlice";
+import { setCurrentUser } from "../redux/userSlice";
 import store from "../redux/store";
 
 const API_URL = `https://dev.api.be-dice.com`;
 
 interface RegisterSuccessResponse {
-  session: String;
+  session: string;
   user?: User;
 }
 
@@ -53,6 +54,11 @@ export default class SocketService {
 
     this.socket.on(`register.new.success`, (res: RegisterSuccessResponse) => {
       console.log(res);
+      store.dispatch(setCurrentUser(res.user));
+      if (window && window.localStorage) {
+        // In browser, save session so that we can restore it later
+        window.localStorage.setItem(`user-session`, res.session);
+      }
     });
 
     this.socket.on(`register.new.failure`, (res: any) => {
