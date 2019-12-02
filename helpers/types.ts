@@ -1,28 +1,28 @@
 import SocketService from "./SocketService";
 
 export interface Color {
-  hex: string;
-  name: string;
+  hex?: string;
+  name?: string;
 }
 
 export interface Avatar {
-  thumb: string;
-  src: string;
-  name: string;
+  thumb?: string;
+  src?: string;
+  name?: string;
 }
 
 export interface User {
-  id: string;
-  avatar: Avatar;
-  name: string;
-  color: Color;
+  id?: string;
+  avatar?: Avatar;
+  name?: string;
+  color?: Color;
 }
 
 export interface Room {
-  id: string;
+  id?: string;
   name: string;
-  users: User[];
-  numOfUsers: number;
+  users?: User[];
+  numOfUsers?: number;
 }
 
 interface SingleRoll {

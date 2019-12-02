@@ -66,7 +66,32 @@ export default class SocketService {
 
     this.socket.on(`disconnect`, () => {
       console.log(`Disconnected`);
-      setConnectionStatus(false);
+      store.dispatch(setConnectionStatus(false));
+    });
+
+    this.socket.on(`room.list`, () => {
+      // You asked for a room list? Here it is
+    });
+    this.socket.on(`room.created`, () => {
+      // A new room has been created
+    });
+    this.socket.on(`room.join.success`, () => {
+      // You joined a room. Congrats!
+    });
+    this.socket.on(`room.leave.success`, () => {
+      // You left the room
+    });
+    this.socket.on(`room.joined`, () => {
+      // Someone joined your room
+    });
+    this.socket.on(`room.left`, () => {
+      // Someone left the room
+    });
+    this.socket.on(`room.roll.new`, () => {
+      // There is a new roll in the room
+    });
+    this.socket.on(`error.client`, () => {
+      // It ain't right, chief
     });
   }
 
@@ -78,8 +103,13 @@ export default class SocketService {
     this.socket.emit(`register.restore`, session);
   }
 
+  createARoom(roomName: string) {
+    this.socket.emit(`room.create`, roomName);
+  }
+
+
   stop() {
     this.socket.removeAllListeners();
-    if (this.socket.connected) this.socket.close();
+    this.socket.disconnect();
   }
 }
