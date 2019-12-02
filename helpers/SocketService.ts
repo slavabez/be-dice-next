@@ -68,7 +68,7 @@ export default class SocketService {
     this.socket.on(
       `register.restore.success`,
       (res: RegisterRestoreResponse) => {
-        console.log(`User restored:`, res);
+        store.dispatch(setCurrentUser(res));
       }
     );
 

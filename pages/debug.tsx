@@ -6,7 +6,8 @@ import Layout from "../components/Layout";
 import {
   initConnect,
   initDisconnect,
-  sendRegisterNewUser
+  sendRegisterNewUser,
+  sendRestoreUser
 } from "../redux/connectionSlice";
 import { User } from "../helpers/types";
 
@@ -65,7 +66,16 @@ const DebugContent = () => {
         >
           Register user
         </button>
-        <button>Restore user</button>
+        <button
+          onClick={() => {
+            if (window && window.localStorage) {
+              const savedSession = window.localStorage.getItem(`user-session`);
+              if (savedSession) dispatch(sendRestoreUser(savedSession));
+            }
+          }}
+        >
+          Restore user
+        </button>
       </fieldset>
 
       <fieldset>
