@@ -1,6 +1,6 @@
 import io from "socket.io-client";
 import { fromEvent, Observable } from "rxjs";
-import { User } from "./types";
+import { RollAuthor, Room, SingleRoll, User } from "./types";
 import { setApiVersion, setConnectionStatus } from "../redux/connectionSlice";
 import store from "../redux/store";
 
@@ -17,6 +17,13 @@ interface RegisterRestoreResponse {
 
 interface VersionResponse {
   version: string;
+}
+
+interface NewRollResponse {
+  rollString: string;
+  rolls: SingleRoll[];
+  total: number;
+  author: RollAuthor;
 }
 
 export default class SocketService {
@@ -40,7 +47,6 @@ export default class SocketService {
   }
 
   setupListeners() {
-    // Get server version
     this.socket.on(`server.version`, (response: VersionResponse) => {
       store.dispatch(setApiVersion(response.version));
     });
@@ -69,32 +75,41 @@ export default class SocketService {
       store.dispatch(setConnectionStatus(false));
     });
 
-    this.socket.on(`room.list`, () => {
+    this.socket.on(`room.list`, (allRooms: Room[]) => {
       // You asked for a room list? Here it is
+      console.log(`List of rooms`, allRooms);
     });
-    this.socket.on(`room.created`, () => {
+    this.socket.on(`room.created`, (newRoom: Room) => {
       // A new room has been created
+      console.log(`Room created`, newRoom);
     });
-    this.socket.on(`room.join.success`, () => {
+    this.socket.on(`room.join.success`, (joinedRoom: Room) => {
       // You joined a room. Congrats!
+      console.log(`Room joined successfully`, joinedRoom);
     });
     this.socket.on(`room.leave.success`, () => {
       // You left the room
+      console.log(`Room left successfully`);
     });
-    this.socket.on(`room.joined`, () => {
+    this.socket.on(`room.joined`, (userThatJoined: User) => {
       // Someone joined your room
+      console.log(`Someone joined the room`, userThatJoined);
     });
-    this.socket.on(`room.left`, () => {
+    this.socket.on(`room.left`, (userThatLeft: User) => {
       // Someone left the room
+      console.log(`Someone left the room`, userThatLeft);
     });
-    this.socket.on(`room.roll.new`, () => {
+    this.socket.on(`room.roll.new`, (info: NewRollResponse) => {
       // There is a new roll in the room
+      console.log(`Someone rolled the dice!`, info);
     });
-    this.socket.on(`error.client`, () => {
+    this.socket.on(`error.client`, (errorMsg: string) => {
       // It ain't right, chief
+      console.error(`There's been a client error`, errorMsg);
     });
   }
 
+  // ACTIONS
   registerUser(newUser: User) {
     this.socket.emit(`register.new`, newUser);
   }
@@ -107,6 +122,17 @@ export default class SocketService {
     this.socket.emit(`room.create`, roomName);
   }
 
+  joinRoom(roomName: string) {
+    this.socket.emit(`room.join`, roomName);
+  }
+
+  leaveRoom(roomName: string) {
+    this.socket.emit(`room.leave`, roomName);
+  }
+
+  sendARoll(rollString: string) {
+    this.socket.emit(`room.roll`, rollString);
+  }
 
   stop() {
     this.socket.removeAllListeners();

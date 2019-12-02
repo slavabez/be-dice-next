@@ -25,7 +25,7 @@ export interface Room {
   numOfUsers?: number;
 }
 
-interface SingleRoll {
+export interface SingleRoll {
   order?: number;
   sides?: number;
   result?: number;
