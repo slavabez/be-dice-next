@@ -15,17 +15,18 @@ export const connectionSlice = createSlice({
     apiVersion: "x.x.x"
   },
   reducers: {
-    initConnect(state) {
+    initConnect() {
       socket.init();
     },
     initDisconnect(state) {
       socket.stop();
+      state.isConnected = false;
     },
     setApiVersion(state, action) {
       state.apiVersion = action.payload;
     },
     setConnectionStatus(state, action) {
-      state.isConnected = !!action.payload;
+      state.isConnected = action.payload;
     },
     sendRegisterNewUser(_, action) {
       socket.registerUser(action.payload);

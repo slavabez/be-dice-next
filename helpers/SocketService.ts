@@ -76,8 +76,8 @@ export default class SocketService {
       console.error(`Socket error:`, e);
     });
 
-    this.socket.on(`disconnect`, () => {
-      console.log(`Disconnected`);
+    this.socket.on(`disconnect`, reason => {
+      console.log(`Disconnected, reason:`, reason);
       store.dispatch(setConnectionStatus(false));
     });
 
@@ -141,7 +141,11 @@ export default class SocketService {
   }
 
   stop() {
-    this.socket.removeAllListeners();
-    this.socket.disconnect();
+    if (this.socket) {
+      this.socket.removeAllListeners();
+      if (this.socket.connected) {
+        this.socket.disconnect();
+      }
+    }
   }
 }
