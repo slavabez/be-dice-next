@@ -1,4 +1,3 @@
-import SocketService from "./SocketService";
 
 export interface Color {
   hex?: string;
@@ -47,11 +46,4 @@ export interface RollMessage {
 
 export interface ActiveRoom extends Room {
   rollHistory: RollMessage[];
-}
-
-export interface GlobalState {
-  socketService?: SocketService;
-  rooms?: Room[];
-  myUser?: User;
-  activeRoom?: ActiveRoom;
 }
